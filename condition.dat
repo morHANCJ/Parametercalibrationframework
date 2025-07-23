@@ -1,0 +1,54 @@
+=======================================
+  Calculation Type
+=======================================
+0     ! rainfall　　Y : 1　N : 0
+1     ! boundaryinflow　Y : 1　N : 0
+1     ! Tecplot_h    　: 1
+1     ! Tecplot_hmax　　　: 1
+1     ! Tecplot_bs　　　　　　: 1
+1     ! Tecplot_inf　　　　　　: 1
+=======================================
+  Condition Condition
+=======================================
+97200  ! timmax 
+0.5   ! dt     
+120      ! dkout: Output interval 
+60       ! dpout: Display output interval
+
+INFORMATION
+4        ! inf_number
+Inf No.
+1        ! road
+2        ! building
+3        ! paddy
+4        ! building_area
+=======================================
+  Input File (FileName < 40word)
+=======================================
+urbanfloodmodel/readfile/data/2D/node.dat                  !node  
+urbanfloodmodel/readfile/data/2D/inf.dat                   ! mesh_inf
+urbanfloodmodel/readfile/data/2D/Domain.dat               !bs
+
+0        ! MESH-DATA-STATUS    mesh.dat / link.dat not yet created: 1　already created: 0
+! → Required when value is 0
+urbanfloodmodel/readfile/data/2D/mesh.dat                  ! Detailed mesh data (centroid coordinates, included nodes/links, etc.)
+urbanfloodmodel/readfile/data/2D/link.dat                  ! Link data (both end nodes, adjacent meshes, etc.)
+ ! → Required when value is 1
+urbanfloodmodel/readfile/data/2D/mesho.dat                 ! Data containing only the node numbers forming each mesh element
+
+urbanfloodmodel/readfile/data/2D/rain.dat                  ! Rainfall data
+urbanfloodmodel/readfile/data/2D/flood.dat                 ! Inflow boundary discharge data
+
+=======================================
+  Output File
+=======================================
+urbanfloodmodel/out/h.dat
+urbanfloodmodel/out/hmax.dat
+urbanfloodmodel/out/tec_h.dat                           
+urbanfloodmodel/out/tec_hmax.dat                        
+urbanfloodmodel/out/tec_bs.dat                         
+urbanfloodmodel/out/tec_inf.dat                       
+urbanfloodmodel/out/sv_write.dat                        
+urbanfloodmodel/out/tec_endh.dat                       
+urbanfloodmodel/out/endh.dat                           
+urbanfloodmodel/out/fvsearch.dat                      
