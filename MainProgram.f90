@@ -1,4 +1,4 @@
-﻿!     #######################################################
+!     #######################################################
 !     ##                                                                                                      ##
 !     ##    Urban Flood Model                                                                  ##
 !     ##                                                                                                      ##
@@ -356,7 +356,6 @@ enddo
       sumhpre = 0.0d0
       sumupre = 0.0d0
       sumvpre = 0.0d0
-      sumcpre = 0.0d0
       if (h(me) >= th) then
           do k = 1, ko(me)
               k2 = mod(k, ko(me)) + 1
@@ -427,9 +426,9 @@ do me = 1, mesh
       call get_meid(me, 2, me2, tme, x2, y2)
       call get_meid(me, 3, me3, tme, x3, y3)
 !--- u ---    
-    call calculate_wedelta1(me1, me2, me3, deltaux, deltauy, wedeltaux(me), wedeltauy(me))
+    call calculate_wedelta(me1, me2, me3, deltaux, deltauy, wedeltaux(me), wedeltauy(me))
 !--- v ---
-    call calculate_wedelta1(me1, me2, me3, deltavx, deltavy, wedeltavx(me), wedeltavy(me))
+    call calculate_wedelta(me1, me2, me3, deltavx, deltavy, wedeltavx(me), wedeltavy(me))
     do k = 1, ko(me)
         if (h(me) < th) then
             reu(me, k) = 0.0d0
@@ -751,7 +750,6 @@ end subroutine calculate_wedelta
       corrh(li) = 1.0d0
       corru(li) = 1.0d0
       corrv(li) = 1.0d0
-      corrc(li) = 1.0d0  
   enddo
   ht = h
 403 iflg = 0
@@ -826,6 +824,7 @@ end subroutine calculate_wedelta
             uum(me) = lambda(me)*uum(me)/(lambda(me)+sqx)
             vvm(me) = lambda(me)*vvm(me)/(lambda(me)+sqx)
         endif
+        hb(me) = h(me) + baseo(me)
 !--- minus water depth corrector ---        
         if (h(me) < 0.0d0) then
             iflg = 1
@@ -871,7 +870,7 @@ end subroutine calculate_wedelta
             sum = sum + (hmax(opmesh(i)) - fm(i))**2
         enddo
         rmse = sqrt(sum/op)
-        write(12, *) rmse
+        write(12, *) rmse, rmse, rmse
     endif
   endsubroutine replace_ground
   
@@ -889,8 +888,8 @@ end subroutine calculate_wedelta
   integer me, it
   
   do me = 1, mesh
-    it = int(time/dtrain) + 1
-    rr(me) = rain(it) * rnof(me)
+    it = int(time/dtrain) + 1    
+    !rr(me) = rain(it) * rnof(me)  ! add runoff coefficient when you need
     if(inf(me) /= 0) then
       vrain = vrain + rr(me)/1000.d0/dtrain*dt2*smesh(me)*(1.0d0 - lambda(me))
     endif
@@ -1311,7 +1310,7 @@ implicit none
 !============================================================
 !                          READ FILE
 !============================================================
-  open(10, file = 'urbanfloodmodel/readfile/condition.dat', action = 'read')
+  open(10, file = 'ufm/readfile/condition.dat', action = 'read')
  !=== Check Files ======================== 
   open(11, file = trim(input_filename), action = 'read', iostat=ierr)
   if (ierr /= 0) then
@@ -1321,11 +1320,11 @@ implicit none
   open(12, file = trim(output_filename), action = 'write', iostat=ierr)
   if (ierr /= 0) then
     write(*,*) 'Error opening dynamic output file: ', trim(output_filename)
-    stop 1
+    stop 2
   endif
-  open(201, file = 'urbanfloodmodel/readfile/data/2D/porosity.dat', action = 'read')
-  open(202, file = 'urbanfloodmodel/readfile/data/2D/op.dat', action = 'read')
-  open(203, file = 'urbanfloodmodel/out/hmaxopmesh.dat', action = 'write')
+  open(201, file = 'ufm/readfile/data/2D/porosity.dat', action = 'read')
+  open(202, file = 'ufm/readfile/data/2D/op.dat', action = 'read')
+  open(203, file = 'ufm/out/hmaxopmesh.dat', action = 'write')
   
 !====================================
 !       Calcultion Condition
@@ -1521,7 +1520,7 @@ implicit none
 !============================================================
 !=== FILE OUTPUT ====================
   !call diskwrite_h
-  !call diskwrite_hmax
+  call diskwrite_hmax
 !=== TECPLOT HMAX BS INF ============
   !if(type_techm == 1) then
   !  call tecwrite_hmax
