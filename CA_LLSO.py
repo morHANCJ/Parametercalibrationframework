@@ -77,11 +77,11 @@ def init_lock(l):
 def evaluate_single(row):
     m_r, m_p, m_b, cd_b = row
     unique_id = uuid.uuid4().hex
-    input_file = f"urbanfloodmodel/readfile/data/2D/input_{unique_id}.dat"
-    output_file = f"urbanfloodmode/readfile/data/RMSE/output_{unique_id}.dat"
+    input_file = f"ufm/readfile/data/2D/input_{unique_id}.dat"
+    output_file = f"ufm/readfile/data/RMSE/output_{unique_id}.dat"
     with open(input_file, "w") as f:
         f.write(f"{m_r} {m_p} {m_b} {cd_b}\n")
-    subprocess.run(["./urbanfloodmodel/MP", input_file, output_file])
+    subprocess.run(["./ufm/MP", input_file, output_file])
     with open(output_file, "r") as f:
         line = f.readline().strip()
         numbers = line.split()
