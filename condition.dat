@@ -22,33 +22,34 @@ Inf No.
 2        ! building
 3        ! paddy
 4        ! building_area
+
 =======================================
   Input File (FileName < 40word)
 =======================================
-urbanfloodmodel/readfile/data/2D/node.dat                  !node  
-urbanfloodmodel/readfile/data/2D/inf.dat                   ! mesh_inf
-urbanfloodmodel/readfile/data/2D/Domain.dat               !bs
+ufm/readfile/data/2D/node.dat                  !node  
+ufm/readfile/data/2D/inf.dat                   ! mesh_inf
+ufm/readfile/data/2D/Domain.dat               !bs
 
 0        ! MESH-DATA-STATUS    mesh.dat / link.dat not yet created: 1　already created: 0
-! → Required when value is 0
-urbanfloodmodel/readfile/data/2D/mesh.dat                  ! Detailed mesh data (centroid coordinates, included nodes/links, etc.)
-urbanfloodmodel/readfile/data/2D/link.dat                  ! Link data (both end nodes, adjacent meshes, etc.)
- ! → Required when value is 1
-urbanfloodmodel/readfile/data/2D/mesho.dat                 ! Data containing only the node numbers forming each mesh element
+ → Required when value is 0
+ufm/readfile/data/2D/mesh.dat                  ! Detailed mesh data (centroid coordinates, included nodes/links, etc.)
+ufm/readfile/data/2D/link.dat                  ! Link data (both end nodes, adjacent meshes, etc.)
+ → Required when value is 1
+ufm/readfile/data/2D/mesho.dat                 ! Data containing only the node numbers forming each mesh element
 
-urbanfloodmodel/readfile/data/2D/rain.dat                  ! Rainfall data
-urbanfloodmodel/readfile/data/2D/flood.dat                 ! Inflow boundary discharge data
+ufm/readfile/data/2D/rain.dat                  ! Rainfall data
+ufm/readfile/data/2D/flood.dat                 ! Inflow boundary discharge data
 
 =======================================
   Output File
 =======================================
-urbanfloodmodel/out/h.dat
-urbanfloodmodel/out/hmax.dat
-urbanfloodmodel/out/tec_h.dat                           
-urbanfloodmodel/out/tec_hmax.dat                        
-urbanfloodmodel/out/tec_bs.dat                         
-urbanfloodmodel/out/tec_inf.dat                       
-urbanfloodmodel/out/sv_write.dat                        
-urbanfloodmodel/out/tec_endh.dat                       
-urbanfloodmodel/out/endh.dat                           
-urbanfloodmodel/out/fvsearch.dat                      
+ufm/out/h.dat
+ufm/out/hmax.dat
+ufm/out/tec_h.dat                           
+ufm/out/tec_hmax.dat                        
+ufm/out/tec_bs.dat                         
+ufm/out/tec_inf.dat                       
+ufm/out/sv_write.dat                        
+ufm/out/tec_endh.dat                       
+ufm/out/endh.dat                           
+ufm/out/fvsearch.dat                              
