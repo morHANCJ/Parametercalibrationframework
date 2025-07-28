@@ -318,10 +318,13 @@ module subprogs
       denominator = (y3 - y1) * (x2 - x1) - (y2 - y1) * (x3 - x1)
 !--- Bed elevation --- 
       deltabx(me) = ((y3 - y1) * (baseo(me2) - baseo(me1)) - (y2 - y1) * (baseo(me3) - baseo(me1))) / denominator
-      deltaby(me) = ((x2 - x1) * (baseo(me3) - baseo(me1)) - (x3 - x1) * (baseo(me2) - baseo(me1))) / denominator
-    call calculate_wedelta(me1, me2, me3, deltabx, deltaby, wedeltabx(me), wedeltaby(me))      
+      deltaby(me) = ((x2 - x1) * (baseo(me3) - baseo(me1)) - (x3 - x1) * (baseo(me2) - baseo(me1))) / denominator 
   enddo
 do me = 1, mesh
+    call get_meid(me, 1, me1, tme, x1, y1)
+    call get_meid(me, 2, me2, tme, x2, y2)
+    call get_meid(me, 3, me3, tme, x3, y3)
+    call calculate_wedelta(me1, me2, me3, deltabx, deltaby, wedeltabx(me), wedeltaby(me))
     do k = 1, ko(me)
             rx = ((dnox(linode(melink(me, k), 2))) +  (dnox(linode(melink(me, k), 1)))) * 0.5d0
             ry = ((dnoy(linode(melink(me, k), 2))) +  (dnoy(linode(melink(me, k), 1)))) * 0.5d0  
