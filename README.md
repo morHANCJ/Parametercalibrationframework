@@ -7,7 +7,7 @@ The CA-LLSO algorithm is written in Python, while the urban flood model is writt
 
 To run the urban flood model, users need to provide a condition file and the required input files contained in Inputfile.zip, which should be prepared according to the specific case.
 
-In the testing.zip, you can find a simple test case to verify that the program runs correctly.
+In the testing.zip, you can find a simple test case to verify that the program runs correctly (RMSE should be around 1.67).
 
 Currently, the MainProgram.f90 file is written based on the BP method. To use other methods, you need to manually adjust the parameters. In particular, for the BB and BH methods, a Buildingmark parameter is provided in the file to set the boundary conditions.
 
